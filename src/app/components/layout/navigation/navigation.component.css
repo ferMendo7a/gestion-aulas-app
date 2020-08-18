@@ -1,0 +1,33 @@
+/* sidebar */
+
+.sidebar-container {
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .sidebar-content {
+    width: auto;
+  }
+
+  /* topbar */
+
+  .background-dark {
+    background: #3E433F;
+    color: #fff;
+}
+
+.logo-img {
+    width: 180px;
+    height: 58px;
+}
+
+.btn-toggle {
+  outline: none;
+}
+
+.m-5 {
+  margin-top: 1.5rem !important;
+}

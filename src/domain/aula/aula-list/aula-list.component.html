@@ -1,0 +1,40 @@
+<h2>{{ titulo }}</h2>
+<hr>
+
+<div class="row">
+    <div class="col-12">
+        <br>
+
+        <mat-spinner *ngIf="loading"></mat-spinner>
+
+        <div *ngIf="!loading" class="mat-elevation-z8 animated fadeIn">
+
+            <table mat-table [dataSource]="aulas">
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef> ID </th>
+                    <td mat-cell *matCellDef="let aula"> {{ aula.id }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                    <td mat-cell *matCellDef="let aula"> {{ aula.descripcion }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="sector">
+                    <th mat-header-cell *matHeaderCellDef> Sector </th>
+                    <td mat-cell *matCellDef="let aula"> {{ aula.sector }} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="['id', 'descripcion', 'sector']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['id', 'descripcion', 'sector'];"></tr>
+
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons >
+            </mat-paginator>
+
+        </div>
+
+    </div>
+</div>
