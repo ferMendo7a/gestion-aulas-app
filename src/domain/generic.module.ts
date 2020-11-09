@@ -10,6 +10,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
@@ -23,6 +24,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
@@ -34,6 +37,8 @@ import { ComponentsModule } from 'src/app/components/components.module';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class GenericModule {}

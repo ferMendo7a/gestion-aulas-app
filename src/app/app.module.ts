@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './components/layout/navigation/navigation.component';
+import { LoginModule } from 'src/domain/login/login.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NavigationComponent } from './components/layout/navigation/navigation.c
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]

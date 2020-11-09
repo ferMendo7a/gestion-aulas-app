@@ -1,4 +1,4 @@
-<!-- <app-topbar></app-topbar> -->
-<app-navigation>
-    <!-- container -->
+<app-navigation *ngIf="isLoggedIn" >
 </app-navigation>
+<app-login *ngIf="!isLoggedIn" >
+</app-login>

@@ -12,15 +12,21 @@ export class LoginComponent implements OnInit {
   usuario: Usuario;
 
   constructor(private service: LoginService) {
-    this.usuario = new Usuario();
-    this.usuario.username = 'admin';
-    this.usuario.password = '12345';
+    
   }
 
   ngOnInit() {
+    this.usuario = new Usuario();
+  }
+  
+  onSubmit() {
+    console.log(this.usuario);
     this.service.login(this.usuario)
       .subscribe( data => {
         console.log(data);
+      }, err => {
+        console.log("error!!!");
+        console.log(err['error'].mensaje);
       })
   }
 
