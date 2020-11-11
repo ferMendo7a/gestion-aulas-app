@@ -24,9 +24,11 @@ export class LoginComponent implements OnInit {
     this.service.login(this.usuario)
       .subscribe( data => {
         console.log(data);
+        alert("login exitoso!");
       }, err => {
-        console.log("error!!!");
+        console.log(err);
         console.log(err['error'].mensaje);
+        alert(err['error'].mensaje);
       })
   }
 
