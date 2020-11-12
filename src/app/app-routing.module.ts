@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'carrera', loadChildren:'../domain/carrera/carrera.module#CarreraModule' },
   { path: 'materia', loadChildren:'../domain/materia/materia.module#MateriaModule' },
   { path: 'distribucion', loadChildren:'../domain/distribucion/distribucion.module#DistribucionModule' },
+  { path: 'login', loadChildren:'../domain/login/login.module#LoginModule' }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

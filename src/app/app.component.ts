@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 
+import { LoginService } from './../domain/login/login.service'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,7 +13,8 @@ export class AppComponent implements OnInit{
   isLoggedIn = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {
 /*    this.router.events
         .subscribe((event) => {
@@ -21,7 +24,7 @@ export class AppComponent implements OnInit{
             }
         });
 */
-
+        this.isLoggedIn = loginService.getToken() !== '';
   }
 
   ngOnInit(): void {
