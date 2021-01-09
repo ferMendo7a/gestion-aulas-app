@@ -12,10 +12,7 @@ export class AppComponent implements OnInit{
   title = 'gestion-aulas-app';
   isLoggedIn = false;
 
-  constructor(
-    private router: Router,
-    private loginService: LoginService
-  ) {
+  constructor() {
 /*    this.router.events
         .subscribe((event) => {
             if (event instanceof NavigationStart) {
@@ -24,7 +21,6 @@ export class AppComponent implements OnInit{
             }
         });
 */
-        this.isLoggedIn = loginService.getToken() !== '';
   }
 
   ngOnInit(): void {

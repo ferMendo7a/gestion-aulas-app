@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginService } from 'src/domain/login/login.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
   
-
+  isLoggedIn: boolean;
   element: any;
   opened: boolean;
   
@@ -20,19 +23,28 @@ export class NavigationComponent implements OnInit {
   ];
   
   
-  constructor() {
-    this.opened = true;      
+  constructor(
+    private authService: AuthService,
+    private router: Router
+    ) {
+    this.isLoggedIn = authService.isAutenticado();
+    this.opened = this.isLoggedIn;
   }
 
   ngOnInit() {
   }
 
   eventAbrir() {
-    console.log('open')
+
   }
   
   eventCerrar() {
-    console.log('close')
+
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 
 

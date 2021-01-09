@@ -1,34 +1,38 @@
-<mat-toolbar class="background-dark" >
+<mat-toolbar class="background-dark">
     <mat-toolbar-row>
-        <a href="/" >
+        <a href="/">
             <img class="logo-img" src="assets/img/logo.png">
         </a>
         <button id="button-toggle" mat-icon-button (click)="sidenav.toggle()" class="btn-toggle">
             <mat-icon class="animated fadeIn" >{{ opened ? 'navigate_before' : 'navigate_next' }}</mat-icon>
         </button>
 
+        <span class="flex-spacer"></span>
+
+        <button id="logout" mat-icon-button (click)="logout()">
+            <mat-icon class="animated fadeIn" >{{ 'power_settings_new' }}</mat-icon>
+        </button>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container class="sidebar-container">
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="eventAbrir()"
-        (closed)="eventCerrar()">
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="eventAbrir()" (closed)="eventCerrar()">
         <mat-nav-list>
-            <mat-list-item *ngFor="let item of items" >
-                <a matLine [routerLink]="item.link" > {{ item.nombre }} </a>
+            <mat-list-item *ngFor="let item of items">
+                <a matLine [routerLink]="item.link"> {{ item.nombre }} </a>
                 <mat-icon matListIcon> {{ item.icono }} </mat-icon>
             </mat-list-item>
-         </mat-nav-list>
+        </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content class="sidebar-content" >
+    <mat-sidenav-content class="sidebar-content">
         <!-- <mat-checkbox [(ngModel)]="opened"></mat-checkbox> -->
 
         <div class="row no-margin">
             <div class="col m-5">
-                
+
                 <router-outlet></router-outlet>
-                
+
             </div>
         </div>
 
