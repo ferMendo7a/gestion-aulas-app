@@ -1,3 +1,21 @@
-<pre>
-    {{ horarios | json }}
-</pre>
+<h3 class="titulo-pagina">{{ titulo }}</h3>
+<hr>
+
+<div class="row">
+    <div class="col-12">
+
+        <div class="col-6">
+            <mat-form-field>
+                <mat-label>Carrera</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let carrera of carreras" [value]="carrera">
+                        {{carrera.descripcion}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <app-calendar></app-calendar>
+
+    </div>
+</div>

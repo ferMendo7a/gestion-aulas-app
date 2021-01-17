@@ -15,7 +15,6 @@ export class ActionBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.options);
   }
 
   volver() {

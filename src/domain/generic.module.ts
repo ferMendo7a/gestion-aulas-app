@@ -9,7 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ComponentsModule } from 'src/app/components/components.module';
+import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -26,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
   exports: [
     CommonModule,
@@ -39,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSelectModule,
   ],
 })
 export class GenericModule {}

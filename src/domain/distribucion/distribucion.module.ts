@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DistribucionListComponent } from './distribucion-list/distribucion-list.component';
 import { DistribucionRoutingModule } from './distribucion-routing.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CalendarComponentModule } from '../calendar/calendar/calendar.module';
+import { GenericModule } from '../generic.module';
 
 
 @NgModule({
   declarations: [
   DistribucionListComponent],
-  imports: [ 
+  imports: [
     DistribucionRoutingModule,
     CommonModule,
-    MatTableModule,
-    MatProgressSpinnerModule
+    GenericModule,
+    CalendarComponentModule
   ],
   providers: []
 })
