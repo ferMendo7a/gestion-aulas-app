@@ -10,11 +10,10 @@ import { CarreraService } from '../../carrera/carrera.service';
 export class DistribucionListComponent implements OnInit {
 
   titulo = "Horarios";
-  horarios: any[];
-  carreras: any[];
 
-  constructor(private service: DistribucionService,
-              private serviceCarrera: CarreraService) {
+  horarios: any;
+
+  constructor(private service: DistribucionService) {
     
     this.service.fetch()
       .subscribe( (data: any[]) => {
@@ -22,13 +21,6 @@ export class DistribucionListComponent implements OnInit {
         this.horarios = data;
       }
     );
-
-    this.serviceCarrera.fetch()
-    .subscribe( (data: any[]) => {
-      console.log(data);
-      this.carreras = data;
-    });
-
 
   }
 

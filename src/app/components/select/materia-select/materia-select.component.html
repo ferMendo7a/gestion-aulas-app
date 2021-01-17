@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Materia</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let materia of materias" [value]="materia">
+            {{materia.descripcion}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

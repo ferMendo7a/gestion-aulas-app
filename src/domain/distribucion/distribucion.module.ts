@@ -5,7 +5,7 @@ import { DistribucionListComponent } from './distribucion-list/distribucion-list
 import { DistribucionRoutingModule } from './distribucion-routing.module';
 import { CalendarComponentModule } from '../calendar/calendar/calendar.module';
 import { GenericModule } from '../generic.module';
-
+import { ComponentsModule } from '../../app/components/components.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,8 @@ import { GenericModule } from '../generic.module';
     DistribucionRoutingModule,
     CommonModule,
     GenericModule,
-    CalendarComponentModule
+    CalendarComponentModule,
+    ComponentsModule,
   ],
   providers: []
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, Input } from '@angular/core';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import {
   startOfDay,
@@ -9,6 +9,7 @@ import {
   isSameDay,
   isSameMonth,
   addHours,
+  parseJSON,
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -36,14 +37,13 @@ const colors: any = {
 export class CalendarComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
-  titulo = "Horarios";
-  horarios: any[];
+  
+  @Input() horarios: any;
 
   view: CalendarView = CalendarView.Day;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-  
+
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -61,6 +61,9 @@ export class CalendarComponent implements OnInit {
       },
     },
   ];
+
+  events: CalendarEvent[];
+  event: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -81,51 +84,10 @@ export class CalendarComponent implements OnInit {
     event: CalendarEvent;
   };
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
-
   refresh: Subject<any> = new Subject();
 
   activeDayIsOpen: boolean = true;
-  
+
   eventTimesChanged({
     event,
     newStart,
@@ -149,11 +111,32 @@ export class CalendarComponent implements OnInit {
   }
 
   constructor(private modal: NgbModal) {
-    
+
   }
 
   ngOnInit() {
     this.setView(CalendarView.Week);
+    console.log('this.horarios')
+    console.log(this.horarios)
+    this.events = [];
+    this.horarios
+    .forEach( horario => {
+      
+      this.event = {};
+      this.event.start = parseJSON(horario.fecha + ' ' + horario.horarioInicio),
+      this.event.end = parseJSON(horario.fecha + ' ' + horario.horarioFin),
+      this.event.title = horario.materia.descripcion,
+      this.event.color = colors.yellow,
+      this.event.actions = this.actions
+      this.event.resizable = {
+        beforeStart: true,
+        afterEnd: true,
+      },
+      this.event.draggable = true
+      this.events.push(this.event);
+
+    });
+
   }
 
   setView(view: CalendarView) {

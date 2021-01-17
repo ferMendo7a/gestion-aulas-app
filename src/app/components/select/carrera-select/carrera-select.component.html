@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Carrera</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let carrera of carreras" [value]="carrera">
+            {{carrera.descripcion}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

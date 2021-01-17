@@ -10,13 +10,20 @@ import {MatButtonModule} from '@angular/material/button';
 
 import { ActionBarComponent } from './action-bar/action-bar.component';
 import { DashboardModule } from 'src/domain/dashboard/dashboard.module';
+import { CarreraSelectComponent } from './select/carrera-select/carrera-select.component';
+import { GenericModule } from '../../domain/generic.module';
+import { MateriaSelectComponent } from './select/materia-select/materia-select.component';
 
 @NgModule({
   declarations: [
-    ActionBarComponent
+    ActionBarComponent,
+    CarreraSelectComponent,
+    MateriaSelectComponent,
   ],
   exports: [
-    ActionBarComponent
+    ActionBarComponent,
+    CarreraSelectComponent,
+    MateriaSelectComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +34,7 @@ import { DashboardModule } from 'src/domain/dashboard/dashboard.module';
     MatListModule,
     MatIconModule,
     MatButtonModule,
+    GenericModule,
   ]
 })
 export class ComponentsModule { }
