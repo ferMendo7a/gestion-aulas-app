@@ -15,7 +15,9 @@
     </div>
 
     <div class="box-margin-top col-12">
-        <app-calendar [horarios]="horarios"></app-calendar>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+
+        <app-calendar *ngIf="!loading" [horarios]="horarios"></app-calendar>
     </div>
 
 </mat-card>

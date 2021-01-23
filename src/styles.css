@@ -93,3 +93,16 @@ mat-spinner {
 .box-margin-top {
     margin-top: 10px;
 }
+
+mwl-calendar-event-title {
+    white-space: normal;
+    font-weight: bold;
+}
+
+.cal-week-view .cal-event {
+    border: solid 2px;
+}
+
+.cal-day-headers {
+    text-transform: capitalize;
+}

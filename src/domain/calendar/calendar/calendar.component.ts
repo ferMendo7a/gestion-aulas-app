@@ -11,8 +11,9 @@ import {
   addHours,
   parseJSON,
 } from 'date-fns';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DistribucionService } from '../../distribucion/distribucion.service';
 
 const colors: any = {
   red: {
@@ -40,9 +41,25 @@ export class CalendarComponent implements OnInit {
   
   @Input() horarios: any;
 
+  locale: string = 'es';
+
   view: CalendarView = CalendarView.Day;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
+
+  horaInicio = '7';
+  horaFin = '22';
+
+  getTimezoneOffsetString(date: Date): string {
+    const timezoneOffset = date.getTimezoneOffset();
+    const hoursOffset = String(
+      Math.floor(Math.abs(timezoneOffset / 60))
+    ).padStart(2, '0');
+    const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
+    const direction = timezoneOffset > 0 ? '-' : '+';
+  
+    return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
+  }
 
   actions: CalendarEventAction[] = [
     {
@@ -110,37 +127,40 @@ export class CalendarComponent implements OnInit {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  constructor(private modal: NgbModal) {
+  constructor(private modal: NgbModal, private service: DistribucionService) {
 
   }
 
   ngOnInit() {
     this.setView(CalendarView.Week);
-    console.log('this.horarios')
-    console.log(this.horarios)
     this.events = [];
+    console.log('horarios');
+    console.log(this.horarios);
     this.horarios
-    .forEach( horario => {
-      
-      this.event = {};
-      this.event.start = parseJSON(horario.fecha + ' ' + horario.horarioInicio),
-      this.event.end = parseJSON(horario.fecha + ' ' + horario.horarioFin),
-      this.event.title = horario.materia.descripcion,
-      this.event.color = colors.yellow,
-      this.event.actions = this.actions
-      this.event.resizable = {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      this.event.draggable = true
-      this.events.push(this.event);
-
+      .forEach( horario => {
+        
+        this.event = {};
+        this.event.start = new Date(horario.fecha + ' ' + horario.horarioInicio),
+        this.event.end = new Date(horario.fecha + ' ' + horario.horarioFin),
+        this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion,
+        this.event.color = horario.materia.id == 1 ? colors.blue : colors.yellow,
+        this.event.actions = this.actions
+        this.event.resizable = {
+          beforeStart: true,
+          afterEnd: true,
+        },
+        this.event.draggable = true;
+        this.events.push(this.event);
     });
 
   }
 
   setView(view: CalendarView) {
     this.view = view;
+  }
+  
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
   }
 
 }

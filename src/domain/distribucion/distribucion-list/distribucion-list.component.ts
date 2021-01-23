@@ -12,13 +12,15 @@ export class DistribucionListComponent implements OnInit {
   titulo = "Horarios";
 
   horarios: any;
+  loading: boolean;
 
   constructor(private service: DistribucionService) {
     
+    this.loading = true;
     this.service.fetch()
       .subscribe( (data: any[]) => {
-        console.log(data);
         this.horarios = data;
+        this.loading = false;
       }
     );
 

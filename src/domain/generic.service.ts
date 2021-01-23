@@ -38,8 +38,6 @@ export abstract class GenericService<T> {
 
   fetch() {
     let headers = this.headers;
-    console.log(`Consultando usuarios a: ${this.url}`);
-    console.log(headers);
     return this.httpClient.get(this.url, { headers });
   }
 
