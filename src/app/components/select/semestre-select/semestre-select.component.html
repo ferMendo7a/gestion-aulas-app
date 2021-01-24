@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Semestre</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let semestre of semestres" [value]="semestre">
+            {{semestre.descripcion}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

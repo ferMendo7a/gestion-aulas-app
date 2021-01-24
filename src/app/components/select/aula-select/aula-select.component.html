@@ -1,0 +1,8 @@
+<mat-form-field>
+    <mat-label>Aula</mat-label>
+    <mat-select>
+        <mat-option *ngFor="let aula of aulas" [value]="aula">
+            {{aula.descripcion}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

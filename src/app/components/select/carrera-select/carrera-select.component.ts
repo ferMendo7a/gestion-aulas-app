@@ -13,7 +13,6 @@ export class CarreraSelectComponent implements OnInit {
   constructor(private service: CarreraService) { 
     this.service.fetch()
     .subscribe( (data: any[]) => {
-      console.log(data);
       this.carreras = data;
     });
   }

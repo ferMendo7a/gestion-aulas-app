@@ -5,16 +5,39 @@
 
     <div class="flex-form">
 
-        <div class="col-6">
-            <app-carrera-select></app-carrera-select>
+        <div class="col-4">
+            <mat-form-field>
+                <mat-label>Filtrar por</mat-label>
+                <mat-select [(value)]="filtroCalendario">
+                    <mat-option value="C">Curso</mat-option>
+                    <mat-option value="A">Aula</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
-        <div class="col-6">
-            <app-materia-select></app-materia-select>
+
+        <div class="flex-form col-8 no-padding" *ngIf="filtroCalendario == 'C'">
+
+            <div class="col-6">
+                <app-carrera-select></app-carrera-select>
+            </div>
+            <div class="col-6">
+                <app-semestre-select></app-semestre-select>
+            </div>
+
         </div>
+
+        <div *ngIf="filtroCalendario == 'A'">
+
+            <div class="col-6">
+                <app-aula-select></app-aula-select>
+            </div>
+
+        </div>
+
 
     </div>
 
-    <div class="box-margin-top col-12">
+    <div class="box-margin-top col-12 no-padding">
         <mat-spinner *ngIf="loading"></mat-spinner>
 
         <app-calendar *ngIf="!loading" [horarios]="horarios"></app-calendar>

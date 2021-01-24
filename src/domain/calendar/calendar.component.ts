@@ -13,7 +13,8 @@ import {
 } from 'date-fns';
 import { Subject, Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DistribucionService } from '../../distribucion/distribucion.service';
+import { DistribucionService } from '../distribucion/distribucion.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 const colors: any = {
   red: {
@@ -49,6 +50,8 @@ export class CalendarComponent implements OnInit {
 
   horaInicio = '7';
   horaFin = '22';
+
+  fecha= new Date();
 
   getTimezoneOffsetString(date: Date): string {
     const timezoneOffset = date.getTimezoneOffset();
@@ -142,7 +145,7 @@ export class CalendarComponent implements OnInit {
         this.event = {};
         this.event.start = new Date(horario.fecha + ' ' + horario.horarioInicio),
         this.event.end = new Date(horario.fecha + ' ' + horario.horarioFin),
-        this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion,
+        this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion + '<br>' + horario.horarioInicio + ' - ' + horario.horarioFin,
         this.event.color = horario.materia.id == 1 ? colors.blue : colors.yellow,
         this.event.actions = this.actions
         this.event.resizable = {
@@ -161,6 +164,11 @@ export class CalendarComponent implements OnInit {
   
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  refreshView(event: MatDatepickerInputEvent<Date>): void {
+    this.viewDate = event.value;
+    this.refresh.next();
   }
 
 }

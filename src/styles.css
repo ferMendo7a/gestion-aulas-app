@@ -106,3 +106,19 @@ mwl-calendar-event-title {
 .cal-day-headers {
     text-transform: capitalize;
 }
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.content-right {
+    text-align: right;
+}
+
+.content-left {
+    text-align: left;
+}
+
+.content-center {
+    text-align: center;
+}

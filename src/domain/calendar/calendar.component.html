@@ -1,0 +1,58 @@
+<div class="flex-form">
+    <div class="col-4">
+        <mat-form-field appearance="fill">
+            <mat-label>Seleccione una fecha</mat-label>
+            <input matInput [matDatepicker]="picker" (dateChange)="refreshView($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-8 content-right">
+        <mat-button-toggle-group style="margin-bottom: 10px;">
+            <mat-button-toggle mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Anterior</mat-button-toggle>
+            <mat-button-toggle mwlCalendarToday [(viewDate)]="viewDate">Hoy</mat-button-toggle>
+            <mat-button-toggle mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Siguiente</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+</div>
+
+<div class="col-12">
+    <div *ngIf="events">
+        <div [ngSwitch]="view">
+            <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)"
+                [locale]="locale">
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)" [dayStartHour]="horaInicio" [dayEndHour]="horaFin"
+                [locale]="locale">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)" [dayStartHour]="horaInicio" [dayEndHour]="horaFin"
+                [locale]="locale">
+            </mwl-calendar-day-view>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #modalContent let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Event action occurred</h5>
+        <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div>
+            Action:
+            <pre>{{ modalData?.action }}</pre>
+        </div>
+        <div>
+            Event:
+            <pre>{{ modalData?.event | json }}</pre>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="close()">OK
+            </button>
+    </div>
+</ng-template>

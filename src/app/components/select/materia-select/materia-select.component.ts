@@ -13,7 +13,6 @@ export class MateriaSelectComponent implements OnInit {
   constructor(private service: MateriaService) {
     this.service.fetch()
       .subscribe( (data: any[]) => {
-        console.log(data);
         this.materias = data;
       });
   }

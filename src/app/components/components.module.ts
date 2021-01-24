@@ -13,17 +13,23 @@ import { DashboardModule } from 'src/domain/dashboard/dashboard.module';
 import { CarreraSelectComponent } from './select/carrera-select/carrera-select.component';
 import { GenericModule } from '../../domain/generic.module';
 import { MateriaSelectComponent } from './select/materia-select/materia-select.component';
+import { SemestreSelectComponent } from './select/semestre-select/semestre-select.component';
+import { AulaSelectComponent } from './select/aula-select/aula-select.component';
 
 @NgModule({
   declarations: [
     ActionBarComponent,
     CarreraSelectComponent,
     MateriaSelectComponent,
+    SemestreSelectComponent,
+    AulaSelectComponent,
   ],
   exports: [
     ActionBarComponent,
     CarreraSelectComponent,
     MateriaSelectComponent,
+    SemestreSelectComponent,
+    AulaSelectComponent,
   ],
   imports: [
     CommonModule,

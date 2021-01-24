@@ -13,7 +13,8 @@ export class DistribucionListComponent implements OnInit {
 
   horarios: any;
   loading: boolean;
-
+  filtroCalendario: string;
+  
   constructor(private service: DistribucionService) {
     
     this.loading = true;
