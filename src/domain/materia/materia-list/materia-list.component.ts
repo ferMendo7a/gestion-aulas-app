@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MateriaService } from '../materia.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-materia-list',
@@ -12,7 +13,10 @@ export class MateriaListComponent implements OnInit {
   materias: any[];
   loading: boolean;
 
-  constructor(private service: MateriaService) {
+  constructor(private service: MateriaService,
+    public route: ActivatedRoute,
+    public router: Router,
+  ) {
 
     this.loading = true;
 
@@ -26,6 +30,10 @@ export class MateriaListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  nuevo() {
+    this.router.navigate(['nuevo'], { relativeTo: this.route });
   }
 
 }

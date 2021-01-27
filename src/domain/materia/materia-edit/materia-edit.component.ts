@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Papa } from 'ngx-papaparse';
 
 @Component({
   selector: 'app-materia-edit',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MateriaEditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private papa: Papa){}
+  
+  ngOnInit(){
+  }
 
-  ngOnInit() {
+  onFileSelect(input: HTMLInputElement)
+  { 
+    const textFromFileLoaded = input.files[0];
+    this.papa.parse(textFromFileLoaded,{
+      header: true,
+      complete: (result) => {
+          console.log('Parsed: ', result);
+      }
+  });
   }
 
 }

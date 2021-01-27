@@ -1,27 +1,30 @@
 <h2>{{ titulo }}</h2>
+
+<button mat-button (click)="nuevo()">Nuevo</button>
+
 <hr>
+
 
 <div class="row">
     <div class="col-12">
         <br>
-        
-        <mat-spinner *ngIf="loading" ></mat-spinner>
 
-        <table mat-table *ngIf="!loading" 
-            [dataSource]="materias" class="mat-elevation-z8 animated fadeIn">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+
+        <table mat-table *ngIf="!loading" [dataSource]="materias" class="mat-elevation-z8 animated fadeIn">
 
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef> ID </th>
                 <td mat-cell *matCellDef="let materia"> {{ materia.id }} </td>
-             </ng-container>
+            </ng-container>
 
-             <ng-container matColumnDef="descripcion">
+            <ng-container matColumnDef="descripcion">
                 <th mat-header-cell *matHeaderCellDef> Descripcion </th>
                 <td mat-cell *matCellDef="let materia"> {{ materia.descripcion }} </td>
-             </ng-container>
+            </ng-container>
 
-             <tr mat-header-row *matHeaderRowDef="['id', 'descripcion']"></tr>
-             <tr mat-row *matRowDef="let row; columns: ['id', 'descripcion'];"></tr>
+            <tr mat-header-row *matHeaderRowDef="['id', 'descripcion']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['id', 'descripcion'];"></tr>
 
         </table>
 
