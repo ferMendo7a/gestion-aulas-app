@@ -15,6 +15,9 @@ import { Subject, Observable } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DistribucionService } from '../distribucion/distribucion.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
+import { HorarioDialogComponent } from '../../app/components/dialog/horario-dialog/horario-dialog.component';
+import { EventColor } from 'calendar-utils';
 
 const colors: any = {
   red: {
@@ -69,7 +72,7 @@ export class CalendarComponent implements OnInit {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+
       },
     },
     {
@@ -77,12 +80,12 @@ export class CalendarComponent implements OnInit {
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
+
       },
     },
   ];
 
-  events: CalendarEvent[];
+  events: CalendarEventCustom[];
   event: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -98,11 +101,6 @@ export class CalendarComponent implements OnInit {
       this.viewDate = date;
     }
   }
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
 
   refresh: Subject<any> = new Subject();
 
@@ -123,22 +121,15 @@ export class CalendarComponent implements OnInit {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
-  }
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  constructor(private modal: NgbModal, private service: DistribucionService) {
+  constructor(private dialogHorario: MatDialog, private service: DistribucionService) {
 
   }
 
   ngOnInit() {
     this.setView(CalendarView.Week);
     this.events = [];
-    console.log('horarios');
-    console.log(this.horarios);
     this.horarios
       .forEach( horario => {
         
@@ -153,6 +144,7 @@ export class CalendarComponent implements OnInit {
           afterEnd: true,
         },
         this.event.draggable = true;
+        this.event.horario = horario;
         this.events.push(this.event);
     });
 
@@ -171,4 +163,26 @@ export class CalendarComponent implements OnInit {
     this.refresh.next();
   }
 
+  openDialogHorario(event) {
+    const dialogRef = this.dialogHorario.open(HorarioDialogComponent, {
+      width: '300px',
+      data: event.horario
+    });
+  }
+
+}
+
+export class CalendarEventCustom implements CalendarEvent {
+  id?: string | number;
+  start: Date;
+  end?: Date;
+  title: string;
+  color?: EventColor;
+  actions?: CalendarEventAction[];
+  allDay?: boolean;
+  cssClass?: string;
+  resizable?: { beforeStart?: boolean; afterEnd?: boolean; };
+  draggable?: boolean;
+  meta?: any;
+  horario?: any;
 }

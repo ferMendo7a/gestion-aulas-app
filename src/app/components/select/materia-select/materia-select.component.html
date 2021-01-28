@@ -1,6 +1,6 @@
-<mat-form-field>
+<mat-form-field appearance="fill">
     <mat-label>Materia</mat-label>
-    <mat-select>
+    <mat-select [compareWith]="compareObjects" [(ngModel)]="materia" (selectionChange)="onMateriaSelected()">
         <mat-option *ngFor="let materia of materias" [value]="materia">
             {{materia.descripcion}}
         </mat-option>

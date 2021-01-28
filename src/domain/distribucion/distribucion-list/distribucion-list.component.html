@@ -17,13 +17,15 @@
 
         <div class="flex-form col-8 no-padding" *ngIf="filtroCalendario == 'C'">
 
-            <div class="col-6">
+            <div class="col-5">
                 <app-carrera-select></app-carrera-select>
             </div>
-            <div class="col-6">
+            <div class="col-5">
                 <app-semestre-select></app-semestre-select>
             </div>
-
+            <div class="col-2">
+                <button mat-raised-button color="primary" (click)="buscarPorCurso()" style="width: 100%; margin-top: 10px;">Buscar</button>
+            </div>
         </div>
 
         <div *ngIf="filtroCalendario == 'A'">
@@ -40,7 +42,7 @@
     <div class="box-margin-top col-12 no-padding">
         <mat-spinner *ngIf="loading"></mat-spinner>
 
-        <app-calendar *ngIf="!loading" [horarios]="horarios"></app-calendar>
+        <app-calendar *ngIf="showHorario" [horarios]="horarios"></app-calendar>
     </div>
 
 </mat-card>

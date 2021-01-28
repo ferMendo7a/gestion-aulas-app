@@ -8,13 +8,15 @@ import { Papa } from 'ngx-papaparse';
 })
 export class MateriaEditComponent implements OnInit {
 
-  constructor(private papa: Papa){}
+  constructor(private papa: Papa) {
+    
+  }
   
-  ngOnInit(){
+  ngOnInit() {
+    
   }
 
-  onFileSelect(input: HTMLInputElement)
-  { 
+  onFileSelect(input: HTMLInputElement) {
     const textFromFileLoaded = input.files[0];
     this.papa.parse(textFromFileLoaded,{
       header: true,

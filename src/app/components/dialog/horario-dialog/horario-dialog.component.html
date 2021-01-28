@@ -1,0 +1,27 @@
+<mat-dialog-content>
+    <div class="row">
+
+        <div class="col-12">
+
+            <app-materia-select (materiaSelected)="setMateria($event)" [value]="data.materia"></app-materia-select>
+
+            <p>Materia seleccionada: {{data.materia.descripcion}}</p>
+
+        </div>
+        <div class="col-6">
+            <input matInput type="time" placeholder="Inicio" [(ngModel)]="data.horarioInicio">
+        </div>
+        <div class="col-6">
+            <input matInput type="time" placeholder="Fin" [(ngModel)]="data.horarioFin">
+        </div>
+        <div class="col-12">
+
+            <app-aula-select (aulaSelected)="setAula($event)" [value]="data.aula"></app-aula-select>
+            <p>{{data.carrera.descripcion}}</p>
+
+            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+
+
+        </div>
+    </div>
+</mat-dialog-content>

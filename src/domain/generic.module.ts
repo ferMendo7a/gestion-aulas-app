@@ -14,6 +14,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule, 
+    MatDialogModule,
   ],
   exports: [
     CommonModule,
@@ -51,6 +53,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatButtonToggleModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
   ],
   providers: [
     MatDatepickerModule,

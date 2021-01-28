@@ -33,7 +33,7 @@ export abstract class GenericService<T> {
 
   save(obj: T): Observable<T> {
     let headers = this.headers;
-    return this.httpClient.post<T>(this.url, obj, { headers });
+    return this.httpClient.post<T>(`${this.url}guardar/`, obj, { headers });
   }
 
   fetch() {
