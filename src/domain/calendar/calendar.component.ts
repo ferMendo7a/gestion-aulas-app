@@ -137,8 +137,8 @@ export class CalendarComponent implements OnInit {
         this.event.start = new Date(horario.fecha + ' ' + horario.horarioInicio),
         this.event.end = new Date(horario.fecha + ' ' + horario.horarioFin),
         this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion + '<br>' + horario.horarioInicio + ' - ' + horario.horarioFin,
-        this.event.color = horario.materia.id == 1 ? colors.blue : colors.yellow,
-        this.event.actions = this.actions
+        this.event.color = horario.materia.id === 1 ? colors.blue : colors.yellow,
+        this.event.actions = this.actions,
         this.event.resizable = {
           beforeStart: true,
           afterEnd: true,
@@ -164,6 +164,23 @@ export class CalendarComponent implements OnInit {
   }
 
   openDialogHorario(event) {
+    
+    if (event.horario) {
+      event.horario.fecha = new Date(event.start);
+      event.horario.fecha.setHours(0,0,0,0);
+    } else {
+      event.horario = {
+        id: null,
+        carrera: {id: 1},
+        materia: {},
+        aula: {},
+        fecha: new Date(),
+        horarioInicio: null,
+        horarioFin: null,
+        usuario: {id: 1}
+      }
+    }
+    console.log(event.horario)
     const dialogRef = this.dialogHorario.open(HorarioDialogComponent, {
       width: '300px',
       data: event.horario

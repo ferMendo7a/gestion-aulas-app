@@ -14,6 +14,8 @@
             <mat-button-toggle mwlCalendarToday [(viewDate)]="viewDate">Hoy</mat-button-toggle>
             <mat-button-toggle mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Siguiente</mat-button-toggle>
         </mat-button-toggle-group>
+
+        <button mat-raised-button color="secondary" (click)="openDialogHorario($event)">Nuevo</button> 
     </div>
 </div>
 

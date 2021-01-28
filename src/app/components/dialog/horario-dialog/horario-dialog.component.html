@@ -1,3 +1,4 @@
+<h2 mat-dialog-title>Agregar horario</h2>
 <mat-dialog-content>
     <div class="row">
 
@@ -5,8 +6,14 @@
 
             <app-materia-select (materiaSelected)="setMateria($event)" [value]="data.materia"></app-materia-select>
 
-            <p>Materia seleccionada: {{data.materia.descripcion}}</p>
-
+        </div>
+        <div class="col-12">
+            <mat-form-field appearance="fill">
+                <mat-label>Seleccione una fecha</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="data.fecha" >
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>    
         </div>
         <div class="col-6">
             <input matInput type="time" placeholder="Inicio" [(ngModel)]="data.horarioInicio">
