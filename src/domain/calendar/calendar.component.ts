@@ -18,6 +18,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { HorarioDialogComponent } from '../../app/components/dialog/horario-dialog/horario-dialog.component';
 import { EventColor } from 'calendar-utils';
+import { AuthService } from 'src/app/services/auth.service';
 
 const colors: any = {
   red: {
@@ -43,29 +44,18 @@ export class CalendarComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   
-  @Input() horarios: any;
+  @Input() filter: any;
 
+  
   locale: string = 'es';
-
+  usuarioLogged: any;
   view: CalendarView = CalendarView.Day;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-
+  horarios: any = [];
   horaInicio = '7';
   horaFin = '22';
-
   fecha= new Date();
-
-  getTimezoneOffsetString(date: Date): string {
-    const timezoneOffset = date.getTimezoneOffset();
-    const hoursOffset = String(
-      Math.floor(Math.abs(timezoneOffset / 60))
-    ).padStart(2, '0');
-    const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
-    const direction = timezoneOffset > 0 ? '-' : '+';
-  
-    return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
-  }
 
   actions: CalendarEventAction[] = [
     {
@@ -123,30 +113,19 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  constructor(private dialogHorario: MatDialog, private service: DistribucionService) {
+  constructor(private dialogHorario: MatDialog,
+              private service: DistribucionService,
+              private authService: AuthService) {
 
+    this.usuarioLogged = authService.getUsuarioConectado();
+    console.log(this.usuarioLogged);
   }
 
   ngOnInit() {
     this.setView(CalendarView.Week);
     this.events = [];
-    this.horarios
-      .forEach( horario => {
-        
-        this.event = {};
-        this.event.start = new Date(horario.fecha + ' ' + horario.horarioInicio),
-        this.event.end = new Date(horario.fecha + ' ' + horario.horarioFin),
-        this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion + '<br>' + horario.horarioInicio + ' - ' + horario.horarioFin,
-        this.event.color = horario.materia.id === 1 ? colors.blue : colors.yellow,
-        this.event.actions = this.actions,
-        this.event.resizable = {
-          beforeStart: true,
-          afterEnd: true,
-        },
-        this.event.draggable = true;
-        this.event.horario = horario;
-        this.events.push(this.event);
-    });
+
+    this.fetchHorarios();
 
   }
 
@@ -171,19 +150,53 @@ export class CalendarComponent implements OnInit {
     } else {
       event.horario = {
         id: null,
-        carrera: {id: 1},
+        carrera: this.filter.carrera,
         materia: {},
         aula: {},
         fecha: new Date(),
         horarioInicio: null,
         horarioFin: null,
-        usuario: {id: 1}
+        usuario: this.usuarioLogged
       }
     }
-    console.log(event.horario)
+    
     const dialogRef = this.dialogHorario.open(HorarioDialogComponent, {
       width: '300px',
       data: event.horario
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.fetchHorarios();
+    });
+
+  }
+
+  fetchHorarios() {
+    this.service.fetchWithFilter(this.filter)
+    .subscribe( (data: any[]) => {
+      this.events = [];
+      this.horarios = data;
+      this.horarios
+        .forEach( horario => {
+          
+          this.event = {};
+          this.event.start = new Date(horario.fecha + ' ' + horario.horarioInicio),
+          this.event.end = new Date(horario.fecha + ' ' + horario.horarioFin),
+          this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion + '<br>' + horario.horarioInicio + ' - ' + horario.horarioFin,
+          this.event.color = horario.materia.id === 1 ? colors.blue : colors.yellow,
+          this.event.actions = this.actions,
+          this.event.resizable = {
+            beforeStart: true,
+            afterEnd: true,
+          },
+          this.event.draggable = true;
+          this.event.horario = horario;
+          this.events.push(this.event);
+
+          this.refresh.next();
+
+      });
+
     });
   }
 

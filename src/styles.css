@@ -122,3 +122,16 @@ mwl-calendar-event-title {
 .content-center {
     text-align: center;
 }
+
+.float-button {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+    border-radius: 50%;
+}
+
+button:focus {
+    outline: none !important;
+}

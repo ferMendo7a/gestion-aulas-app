@@ -1,6 +1,6 @@
 <mat-form-field>
     <mat-label>Carrera</mat-label>
-    <mat-select>
+    <mat-select [compareWith]="compareObjects" [(ngModel)]="carrera" (selectionChange)="onCarreraSelected()">
         <mat-option *ngFor="let carrera of carreras" [value]="carrera">
             {{carrera.descripcion}}
         </mat-option>

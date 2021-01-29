@@ -15,7 +15,9 @@ export class DistribucionListComponent implements OnInit {
   loading: boolean = false;
   showHorario: boolean = false;
   filtroCalendario: string;
-  
+
+  horarioFiltro: any = {carrera: null, aula: null, materia: null}
+
   constructor(private service: DistribucionService) {
     
   }
@@ -25,16 +27,12 @@ export class DistribucionListComponent implements OnInit {
   }
 
   buscarPorCurso() {
-    this.loading = true;
-    this.service.fetch()
-      .subscribe( (data: any[]) => {
-        this.horarios = data;
-        this.showHorario = true;
-        this.loading = false;
-      }
-    );
+    this.showHorario = true;
   }
 
-
+  setCarreraFiltro(event) {
+    console.log(event);
+    this.horarioFiltro.carrera = event;
+  }
 
 }

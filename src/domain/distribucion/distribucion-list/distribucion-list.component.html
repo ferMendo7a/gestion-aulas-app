@@ -18,7 +18,7 @@
         <div class="flex-form col-8 no-padding" *ngIf="filtroCalendario == 'C'">
 
             <div class="col-5">
-                <app-carrera-select></app-carrera-select>
+                <app-carrera-select (carreraSelected)="setCarreraFiltro($event)" [value]="horarioFiltro.carrera"></app-carrera-select>
             </div>
             <div class="col-5">
                 <app-semestre-select></app-semestre-select>
@@ -42,7 +42,7 @@
     <div class="box-margin-top col-12 no-padding">
         <mat-spinner *ngIf="loading"></mat-spinner>
 
-        <app-calendar *ngIf="showHorario" [horarios]="horarios"></app-calendar>
+        <app-calendar *ngIf="showHorario" [filter]="horarioFiltro"></app-calendar>
     </div>
 
 </mat-card>

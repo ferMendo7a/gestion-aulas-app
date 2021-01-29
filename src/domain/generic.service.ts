@@ -46,4 +46,10 @@ export abstract class GenericService<T> {
     return this.httpClient.get(this.url + id, { headers });
   }
 
+  fetchWithFilter(obj: T) {
+    let headers = this.headers;
+    return this.httpClient.put<T>(this.url, obj, { headers });
+  }
+
+
 }

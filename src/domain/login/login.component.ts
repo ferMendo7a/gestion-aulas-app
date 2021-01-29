@@ -24,20 +24,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.usuario);
     this.service.login(this.usuario)
       .subscribe( data => {
-
-        console.log(data);
-        console.log("nav to dashboard");
         this.router.navigate(['dashboard']);
-
       }, err => {
-
         console.log(err);
-        console.log(err['error'].mensaje);
-        alert(err['error'].mensaje);
-
       })
   }
 

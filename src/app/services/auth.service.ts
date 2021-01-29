@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Usuario } from 'src/domain/usuario/usuario.model';
 
 import { map } from 'rxjs/operators';
@@ -10,13 +10,24 @@ import { map } from 'rxjs/operators';
 export class AuthService {
 
   userToken: string;
-  url = 'http://localhost:8080/login';
+  urlBase = 'http://localhost:8080/';
+  url = `${this.urlBase}login`;
+  usuarioLoggedUrl = `${this.urlBase}usuario-conectado`;
+  usuarioLogged: any;
+  headers: HttpHeaders;
 
   constructor(
     private http: HttpClient
   ) {
-    console.log("obteniendo token...");
     this.getToken();
+    this.headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.userToken}`
+    });  
+    if (this.isAutenticado()) {
+      this.getUsuarioLogged().subscribe(
+        data => this.usuarioLogged = data
+      )
+    }
   }
 
   login(usuario: Usuario) {
@@ -54,6 +65,15 @@ export class AuthService {
       this.userToken = '';
     }
     return this.userToken;
+  }
+
+  getUsuarioLogged() {
+    let headers = this.headers;
+    return this.http.get(this.usuarioLoggedUrl, {headers})
+  }
+
+  getUsuarioConectado() {
+    return this.usuarioLogged;
   }
 
 }
