@@ -15,6 +15,7 @@ export class HorarioDialogComponent implements OnInit {
     private service: DistribucionService) {}
 
   ngOnInit() {
+    console.log(this.data);
   }
 
   setMateria(event){

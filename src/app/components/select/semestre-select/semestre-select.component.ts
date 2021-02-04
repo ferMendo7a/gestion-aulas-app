@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { SemestreService } from '../../../../domain/semestre/semestre.service';
 
 @Component({
@@ -8,16 +8,32 @@ import { SemestreService } from '../../../../domain/semestre/semestre.service';
 })
 export class SemestreSelectComponent implements OnInit {
 
-  semestres: any[];
+  @Output() semestreSelected = new EventEmitter();
+  @Input() value: any;
 
-  constructor(private service: SemestreService) {
+  semestres: any[];
+  semestre: any;
+
+  constructor(private service: SemestreService) { 
+  }
+  
+  ngOnInit() {
+    if (this.value != undefined) {
+      this.semestre = this.value;
+    }
+  
     this.service.fetch()
-      .subscribe( (data: any[]) => {
-        this.semestres = data;
-      });
+    .subscribe( (data: any[]) => {
+      this.semestres = data;
+    });
   }
 
-  ngOnInit() {
+  onSemestreSelected() {
+    this.semestreSelected.emit(this.semestre);
+  }
+
+  compareObjects(o1: any, o2: any): boolean {
+    return o1 !== undefined && o2 !== undefined && o1.id === o2.id;
   }
 
 }

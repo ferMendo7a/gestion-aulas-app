@@ -7,6 +7,7 @@ import { CalendarComponent } from './calendar.component';
 
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GenericModule } from '../generic.module';
+import { ComponentsModule } from 'src/app/components/components.module';
 
 registerLocaleData(localeEs);
 
@@ -21,6 +22,7 @@ registerLocaleData(localeEs);
     CommonModule,
     GenericModule,
     NgbModalModule,
+    ComponentsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

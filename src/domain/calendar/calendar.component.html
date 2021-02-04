@@ -1,4 +1,41 @@
-<div class="flex-form">
+<div class="row">
+
+    <div class="col-3">
+        <mat-form-field>
+            <mat-label>Agrupar por</mat-label>
+            <mat-select [(value)]="filtroCalendario">
+                <mat-option value="C">Curso</mat-option>
+                <mat-option value="A">Aula</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="row col-9 no-padding">
+
+        <div class="col-4">
+            <app-carrera-select (carreraSelected)="setCarreraFiltro($event)" [value]="horarioFiltro.curso.carrera"></app-carrera-select>
+        </div>
+        <div class="col-4">
+            <app-seccion-select (seccionSelected)="setSeccionFiltro($event)" [secciones]="horarioFiltro.curso.carrera" [value]="horarioFiltro.curso.seccion"></app-seccion-select>
+        </div>
+        <div class="col-3">
+            <app-semestre-select (semestreSelected)="setSemestreFiltro($event)" [value]="horarioFiltro.curso.semestre"></app-semestre-select>
+        </div>
+
+        <div class="col-1" style="padding-right: 0px;">
+            <button mat-raised-button color="primary" (click)="buscarHorarios()" style="width: 100%; margin-top: 10px;">Buscar</button>
+        </div>
+
+    </div>
+
+    <div class="flex-form col-8 no-padding" *ngIf="filtroCalendario == 'A'">
+
+        <div class="col-6">
+            <app-aula-select></app-aula-select>
+        </div>
+
+    </div>
+
     <div class="col-4">
         <mat-form-field appearance="fill">
             <mat-label>Seleccione una fecha</mat-label>
@@ -10,15 +47,18 @@
 
     <div class="col-8 content-right">
         <mat-button-toggle-group style="margin-bottom: 10px;">
-            <mat-button-toggle mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Anterior</mat-button-toggle>
+            <mat-button-toggle mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                <mat-icon class="animated fadeIn">arrow_back</mat-icon>
+            </mat-button-toggle>
             <mat-button-toggle mwlCalendarToday [(viewDate)]="viewDate">Hoy</mat-button-toggle>
-            <mat-button-toggle mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">Siguiente</mat-button-toggle>
+            <mat-button-toggle mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                <mat-icon class="animated fadeIn">arrow_forward</mat-icon>
+            </mat-button-toggle>
         </mat-button-toggle-group>
-
     </div>
 </div>
 
-<div class="col-12">
+<div class="col-12 no-padding">
     <div *ngIf="events">
 
         <div [ngSwitch]="view">

@@ -31,7 +31,6 @@ export class DistribucionListComponent implements OnInit {
   }
 
   setCarreraFiltro(event) {
-    console.log(event);
     this.horarioFiltro.carrera = event;
   }
 

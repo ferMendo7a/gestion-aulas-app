@@ -12,7 +12,6 @@ import {
   parseJSON,
 } from 'date-fns';
 import { Subject, Observable } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DistribucionService } from '../distribucion/distribucion.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
@@ -42,11 +41,16 @@ const colors: any = {
 })
 export class CalendarComponent implements OnInit {
 
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-  
-  @Input() filter: any;
-
-  
+  filtroCalendario: any;
+  horarioFiltro: any = {
+                        curso: {
+                          carrera: null, 
+                          seccion: null,
+                          semestre: null
+                        },
+                        aula: null,
+                        materia: null
+                      };
   locale: string = 'es';
   usuarioLogged: any;
   view: CalendarView = CalendarView.Day;
@@ -70,7 +74,6 @@ export class CalendarComponent implements OnInit {
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
-
       },
     },
   ];
@@ -118,15 +121,11 @@ export class CalendarComponent implements OnInit {
               private authService: AuthService) {
 
     this.usuarioLogged = authService.getUsuarioConectado();
-    console.log(this.usuarioLogged);
   }
 
   ngOnInit() {
     this.setView(CalendarView.Week);
     this.events = [];
-
-    this.fetchHorarios();
-
   }
 
   setView(view: CalendarView) {
@@ -150,13 +149,13 @@ export class CalendarComponent implements OnInit {
     } else {
       event.horario = {
         id: null,
-        carrera: this.filter.carrera,
+        curso: this.horarioFiltro.curso,
         materia: {},
         aula: {},
         fecha: new Date(),
         horarioInicio: null,
         horarioFin: null,
-        usuario: this.usuarioLogged
+        usuario: this.usuarioLogged ? this.usuarioLogged : {id: 1}
       }
     }
     
@@ -172,7 +171,7 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchHorarios() {
-    this.service.fetchWithFilter(this.filter)
+    this.service.fetchWithFilter(this.horarioFiltro)
     .subscribe( (data: any[]) => {
       this.events = [];
       this.horarios = data;
@@ -183,7 +182,7 @@ export class CalendarComponent implements OnInit {
           this.event.start = new Date(horario.fecha + ' ' + horario.horarioInicio),
           this.event.end = new Date(horario.fecha + ' ' + horario.horarioFin),
           this.event.title = horario.materia.descripcion + '<br>' + horario.aula.descripcion + '<br>' + horario.horarioInicio + ' - ' + horario.horarioFin,
-          this.event.color = horario.materia.id === 1 ? colors.blue : colors.yellow,
+          this.event.color = horario.materia.id % 2 == 1 ? colors.blue : colors.yellow,
           this.event.actions = this.actions,
           this.event.resizable = {
             beforeStart: true,
@@ -198,6 +197,21 @@ export class CalendarComponent implements OnInit {
       });
 
     });
+  }
+
+  buscarHorarios() {
+    this.fetchHorarios();
+  }
+
+  setCarreraFiltro(event) {
+    this.horarioFiltro.curso.carrera = event;
+  }
+  setSeccionFiltro(event) {
+    console.log(event);
+    this.horarioFiltro.curso.seccion = event;
+  }
+  setSemestreFiltro(event) {
+    this.horarioFiltro.curso.semestre = event;
   }
 
 }
