@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { SeccionService } from '../../../../domain/seccion/seccion.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-seccion-select',
@@ -21,11 +22,9 @@ export class SeccionSelectComponent implements OnInit {
     if (this.value != undefined) {
       this.seccion = this.value;
     }
-    console.log(this.secciones);
   }
 
   onSeccionSelected() {
-    console.log(this.seccion);
     this.seccionSelected.emit(this.seccion);
   }
 

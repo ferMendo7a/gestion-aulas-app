@@ -16,10 +16,10 @@
             <app-carrera-select (carreraSelected)="setCarreraFiltro($event)" [value]="horarioFiltro.curso.carrera"></app-carrera-select>
         </div>
         <div class="col-4">
-            <app-seccion-select (seccionSelected)="setSeccionFiltro($event)" [secciones]="horarioFiltro.curso.carrera" [value]="horarioFiltro.curso.seccion"></app-seccion-select>
+            <app-seccion-select *ngIf="carreraSelected" (seccionSelected)="setSeccionFiltro($event)" [secciones]="horarioFiltro.curso.carrera.secciones" [value]="horarioFiltro.curso.seccion"></app-seccion-select>
         </div>
         <div class="col-3">
-            <app-semestre-select (semestreSelected)="setSemestreFiltro($event)" [value]="horarioFiltro.curso.semestre"></app-semestre-select>
+            <app-semestre-select *ngIf="carreraSelected" (semestreSelected)="setSemestreFiltro($event)" [value]="horarioFiltro.curso.semestre"></app-semestre-select>
         </div>
 
         <div class="col-1" style="padding-right: 0px;">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="col-4">
-        <mat-form-field appearance="fill">
+        <mat-form-field>
             <mat-label>Seleccione una fecha</mat-label>
             <input matInput [matDatepicker]="picker" (dateChange)="refreshView($event)">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

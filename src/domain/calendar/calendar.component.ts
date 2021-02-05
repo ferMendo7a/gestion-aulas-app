@@ -60,6 +60,8 @@ export class CalendarComponent implements OnInit {
   horaInicio = '7';
   horaFin = '22';
   fecha= new Date();
+  carreraSelected: boolean = false;
+
 
   actions: CalendarEventAction[] = [
     {
@@ -146,6 +148,8 @@ export class CalendarComponent implements OnInit {
     if (event.horario) {
       event.horario.fecha = new Date(event.start);
       event.horario.fecha.setHours(0,0,0,0);
+      event.horario.horarioInicio = '00:00';
+      event.horario.horarioFin = '00:00';
     } else {
       event.horario = {
         id: null,
@@ -160,7 +164,7 @@ export class CalendarComponent implements OnInit {
     }
     
     const dialogRef = this.dialogHorario.open(HorarioDialogComponent, {
-      width: '300px',
+      width: '400px',
       data: event.horario
     });
 
@@ -205,10 +209,11 @@ export class CalendarComponent implements OnInit {
 
   setCarreraFiltro(event) {
     this.horarioFiltro.curso.carrera = event;
+    if (this.horarioFiltro.curso.carrera.secciones && this.horarioFiltro.curso.carrera.secciones.length > 0)
+    this.carreraSelected = true;
   }
   setSeccionFiltro(event) {
-    console.log(event);
-    this.horarioFiltro.curso.seccion = event;
+    this.horarioFiltro.curso.seccion = event.seccion;
   }
   setSemestreFiltro(event) {
     this.horarioFiltro.curso.semestre = event;

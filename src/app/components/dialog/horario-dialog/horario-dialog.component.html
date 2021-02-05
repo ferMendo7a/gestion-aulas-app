@@ -8,7 +8,7 @@
 
         </div>
         <div class="col-12">
-            <mat-form-field appearance="fill">
+            <mat-form-field>
                 <mat-label>Seleccione una fecha</mat-label>
                 <input matInput [matDatepicker]="picker" [(ngModel)]="data.fecha">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -16,17 +16,26 @@
             </mat-form-field>
         </div>
         <div class="col-6">
-            <input matInput type="time" placeholder="Inicio" [(ngModel)]="data.horarioInicio">
+            <mat-form-field>
+                <mat-label>Inicio</mat-label>
+                <input matInput type="time" placeholder="Inicio" [(ngModel)]="data.horarioInicio">
+            </mat-form-field>
         </div>
         <div class="col-6">
-            <input matInput type="time" placeholder="Fin" [(ngModel)]="data.horarioFin">
+            <mat-form-field>
+                <mat-label>Fin</mat-label>
+                <input matInput type="time" placeholder="Fin" [(ngModel)]="data.horarioFin">
+            </mat-form-field>
         </div>
         <div class="col-12">
 
             <app-aula-select (aulaSelected)="setAula($event)" [value]="data.aula"></app-aula-select>
             <p>{{data.curso.carrera.descripcion}} ({{data.curso.seccion.descripcion}}) - {{data.curso.semestre.descripcion}} </p>
 
-            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <div class="submit-button">
+                <button mat-button mat-dialog-close>Cancelar</button>
+                <button mat-raised-button color="primary" (click)="submit()">Guardar</button>
+            </div>
 
 
         </div>

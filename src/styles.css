@@ -135,3 +135,8 @@ mwl-calendar-event-title {
 button:focus {
     outline: none !important;
 }
+
+.submit-button {
+    float: right;
+    margin-top: 15px;
+}
