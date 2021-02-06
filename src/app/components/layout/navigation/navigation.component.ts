@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginService } from 'src/domain/login/login.service';
 
@@ -10,9 +11,13 @@ import { LoginService } from 'src/domain/login/login.service';
 })
 export class NavigationComponent implements OnInit {
   
+  @ViewChild(MatSidenav, { static: false }) sidenav: MatSidenav;
+  //@ViewChild('sidenav', { static: false }) sidenav: ElementRef;
+
   isLoggedIn: boolean;
   element: any;
   opened: boolean;
+  showNav: boolean = false;
   
   items = [
     {link: "usuario"     , nombre: "Usuarios" , icono: "account_box"  },
@@ -23,12 +28,23 @@ export class NavigationComponent implements OnInit {
   ];
   
   
-  constructor(
+  constructor( 
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
     ) {
-    this.isLoggedIn = authService.isAutenticado();
-    this.opened = this.isLoggedIn;
+        this.router.events
+        .subscribe((event) => {
+          if (event instanceof NavigationStart ) {
+            this.showNav = event.url !== '/login';
+            if (this.showNav) {
+              this.sidenav.open();
+            } else {
+              this.sidenav.close();
+            }
+            this.opened = this.showNav;
+          }
+        });
   }
 
   ngOnInit() {

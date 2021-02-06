@@ -148,8 +148,6 @@ export class CalendarComponent implements OnInit {
     if (event.horario) {
       event.horario.fecha = new Date(event.start);
       event.horario.fecha.setHours(0,0,0,0);
-      event.horario.horarioInicio = '00:00';
-      event.horario.horarioFin = '00:00';
     } else {
       event.horario = {
         id: null,
@@ -157,8 +155,8 @@ export class CalendarComponent implements OnInit {
         materia: {},
         aula: {},
         fecha: new Date(),
-        horarioInicio: null,
-        horarioFin: null,
+        horarioInicio: '00:00',
+        horarioFin: '00:00',
         usuario: this.usuarioLogged ? this.usuarioLogged : {id: 1}
       }
     }

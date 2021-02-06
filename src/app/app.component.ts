@@ -13,14 +13,6 @@ export class AppComponent implements OnInit{
   isLoggedIn = false;
 
   constructor() {
-/*    this.router.events
-        .subscribe((event) => {
-            if (event instanceof NavigationStart) {
-                if (this.isLoggedIn) {
-                }
-            }
-        });
-*/
   }
 
   ngOnInit(): void {

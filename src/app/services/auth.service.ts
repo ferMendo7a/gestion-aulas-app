@@ -34,7 +34,7 @@ export class AuthService {
     return this.http.post(this.url, usuario)
       .pipe(
         map( data => {
-          this.setToken( data['token'] );
+          this.setToken( data['token'], data['expiration'] );
           return data;
         })
       )
@@ -48,14 +48,29 @@ export class AuthService {
   isAutenticado(): boolean {
     if ( this.userToken.length < 2 ) {
       return false;
-    } else {
+    }
+
+    const expiration = Number(this.getExpiration());
+    const expirationDate = new Date();
+    expirationDate.setTime(expiration);
+
+    console.log(expirationDate)
+
+
+    if (expirationDate > new Date()) {
       return true;
+    } else {
+      return false;
     }
   }
 
-  setToken(token: string) {
+  setToken(token: string, expiration: string) {
     this.userToken = token;
     localStorage.setItem('token', token);
+
+    let hoy = new Date();
+    hoy.setMilliseconds(Number(expiration));
+    localStorage.setItem('expiration', hoy.getTime().toString());
   }
 
   getToken() {
@@ -65,6 +80,10 @@ export class AuthService {
       this.userToken = '';
     }
     return this.userToken;
+  }
+
+  getExpiration() {
+    return localStorage.getItem('expiration') || '';
   }
 
   getUsuarioLogged() {
