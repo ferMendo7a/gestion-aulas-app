@@ -22,12 +22,12 @@ export class AuthService {
     this.getToken();
     this.headers = new HttpHeaders({
       'Authorization': `Bearer ${this.userToken}`
-    });  
-    if (this.isAutenticado()) {
+    });
+/*    if (this.isAutenticado()) {
       this.getUsuarioLogged().subscribe(
         data => this.usuarioLogged = data
       )
-    }
+    }*/
   }
 
   login(usuario: Usuario) {
@@ -35,6 +35,9 @@ export class AuthService {
       .pipe(
         map( data => {
           this.setToken( data['token'], data['expiration'] );
+          this.usuarioLogged = {};
+          this.usuarioLogged.id = data['user-id'];
+          this.usuarioLogged.username = data['user']['username'];
           return data;
         })
       )
@@ -43,6 +46,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
   }
 
   isAutenticado(): boolean {
@@ -53,9 +57,6 @@ export class AuthService {
     const expiration = Number(this.getExpiration());
     const expirationDate = new Date();
     expirationDate.setTime(expiration);
-
-    console.log(expirationDate)
-
 
     if (expirationDate > new Date()) {
       return true;

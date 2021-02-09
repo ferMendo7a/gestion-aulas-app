@@ -121,8 +121,8 @@ export class CalendarComponent implements OnInit {
   constructor(private dialogHorario: MatDialog,
               private service: DistribucionService,
               private authService: AuthService) {
-
     this.usuarioLogged = authService.getUsuarioConectado();
+    console.log(this.usuarioLogged);
   }
 
   ngOnInit() {
@@ -148,6 +148,7 @@ export class CalendarComponent implements OnInit {
     if (event.horario) {
       event.horario.fecha = new Date(event.start);
       event.horario.fecha.setHours(0,0,0,0);
+      event.horario.usuario = this.usuarioLogged;
     } else {
       event.horario = {
         id: null,
@@ -157,7 +158,7 @@ export class CalendarComponent implements OnInit {
         fecha: new Date(),
         horarioInicio: '00:00',
         horarioFin: '00:00',
-        usuario: this.usuarioLogged ? this.usuarioLogged : {id: 1}
+        usuario: this.usuarioLogged
       }
     }
     
@@ -167,7 +168,9 @@ export class CalendarComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.fetchHorarios();
+      console.log(result);
+      if (result)
+        this.fetchHorarios();
     });
 
   }

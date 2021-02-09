@@ -29,6 +29,8 @@
         </div>
         <div class="col-12">
 
+            <mat-checkbox class="example-margin" [(ngModel)]="data.registrarHastaFinalPeriodo">Repetir clase durante todo el periodo</mat-checkbox>
+
             <app-aula-select (aulaSelected)="setAula($event)" [value]="data.aula"></app-aula-select>
             <p>{{data.curso.carrera.descripcion}} ({{data.curso.seccion.descripcion}}) - {{data.curso.semestre.descripcion}} </p>
 

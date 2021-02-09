@@ -28,9 +28,8 @@ export class HorarioDialogComponent implements OnInit {
 
   submit() {
     console.log(this.data);
-    
-    this.service.save(this.data).subscribe(
-      data => console.log(data)
+    this.service.save(this.data).subscribe( data =>
+      this.dialogRef.close(data), err => this.dialogRef.close()
     );
 
   }
