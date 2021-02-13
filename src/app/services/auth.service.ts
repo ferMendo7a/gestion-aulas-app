@@ -38,6 +38,7 @@ export class AuthService {
           this.usuarioLogged = {};
           this.usuarioLogged.id = data['user-id'];
           this.usuarioLogged.username = data['user']['username'];
+          localStorage.setItem('user', JSON.stringify(this.usuarioLogged));
           return data;
         })
       )
@@ -93,7 +94,7 @@ export class AuthService {
   }
 
   getUsuarioConectado() {
-    return this.usuarioLogged;
+    return JSON.parse(localStorage.getItem('user'));
   }
 
 }

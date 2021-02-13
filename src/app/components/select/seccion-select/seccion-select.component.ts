@@ -29,7 +29,7 @@ export class SeccionSelectComponent implements OnInit {
   }
 
   compareObjects(o1: any, o2: any): boolean {
-    return o1 !== undefined && o2 !== undefined && o1.id === o2.id;
+    return o1 !== undefined && o2 !== undefined && o1.seccion.id === o2.seccion.id;
   }
 
 }
