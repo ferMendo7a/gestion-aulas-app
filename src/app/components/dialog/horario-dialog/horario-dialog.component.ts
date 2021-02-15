@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DistribucionService } from '../../../../domain/distribucion/distribucion.service';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-horario-dialog',
@@ -14,7 +15,8 @@ export class HorarioDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<HorarioDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private service: DistribucionService,
-    private spinnerDialog: MatDialog
+    private spinnerDialog: MatDialog,
+    private snackBar: MatSnackBar,
     ) {
 
     }
@@ -37,7 +39,9 @@ export class HorarioDialogComponent implements OnInit {
       dialogSpinnerRef.close();
       this.dialogRef.close(data);
     }, err => {
+      console.log(err);
       dialogSpinnerRef.close();
+      this.snackBar.open(err.error.message, null,{duration: 2500})
       this.dialogRef.close();
     });
 
