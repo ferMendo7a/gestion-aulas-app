@@ -15,6 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import { MatSnackBarModule, MatToolbarModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -35,6 +36,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule, 
     MatDialogModule,
+    MatSnackBarModule,
+    MatToolbarModule,
   ],
   exports: [
     CommonModule,
@@ -53,6 +56,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatSnackBarModule,
+    MatToolbarModule,
   ],
   providers: [
     MatDatepickerModule,

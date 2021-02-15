@@ -9,8 +9,6 @@ import { CarreraService } from '../../carrera/carrera.service';
 })
 export class DistribucionListComponent implements OnInit {
 
-  titulo = "Horarios";
-
   horarios: any;
   loading: boolean = false;
   showHorario: boolean = false;

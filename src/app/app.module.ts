@@ -18,6 +18,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './components/layout/navigation/navigation.component';
 import { LoginModule } from 'src/domain/login/login.module';
+import { MAT_DATE_LOCALE } from '@angular/material';
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -40,7 +53,9 @@ import { LoginModule } from 'src/domain/login/login.module';
     MatButtonModule,
     LoginModule
   ],
-  providers: [],
+  providers: [
+      {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

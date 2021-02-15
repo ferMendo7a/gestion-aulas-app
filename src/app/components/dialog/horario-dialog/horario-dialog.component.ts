@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DistribucionService } from '../../../../domain/distribucion/distribucion.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-horario-dialog',
@@ -12,7 +13,11 @@ export class HorarioDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<HorarioDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private service: DistribucionService) {}
+    private service: DistribucionService,
+    private spinnerDialog: MatDialog
+    ) {
+
+    }
 
   ngOnInit() {
   }
@@ -27,10 +32,14 @@ export class HorarioDialogComponent implements OnInit {
   
 
   submit() {
-    console.log(this.data);
-    this.service.save(this.data).subscribe( data =>
-      this.dialogRef.close(data), err => this.dialogRef.close()
-    );
+    const dialogSpinnerRef = this.spinnerDialog.open(SpinnerComponent, {panelClass: 'spinner-dialog-container'});
+    this.service.save(this.data).subscribe( data => {
+      dialogSpinnerRef.close();
+      this.dialogRef.close(data);
+    }, err => {
+      dialogSpinnerRef.close();
+      this.dialogRef.close();
+    });
 
   }
 

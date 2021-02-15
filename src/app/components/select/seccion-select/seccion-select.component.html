@@ -2,7 +2,7 @@
     <mat-label>Sección</mat-label>
     <mat-select [compareWith]="compareObjects" [(ngModel)]="seccion" (selectionChange)="onSeccionSelected()">
         <mat-option *ngFor="let seccion of secciones" [value]="seccion">
-            {{seccion.seccion.descripcion}}
+            {{seccion.descripcion}}
         </mat-option>
     </mat-select>
 </mat-form-field>

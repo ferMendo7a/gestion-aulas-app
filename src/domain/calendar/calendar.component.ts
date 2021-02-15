@@ -18,6 +18,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { HorarioDialogComponent } from '../../app/components/dialog/horario-dialog/horario-dialog.component';
 import { EventColor } from 'calendar-utils';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatSnackBar } from '@angular/material';
+import { SpinnerComponent } from 'src/app/components/dialog/spinner/spinner.component';
 
 const colors: any = {
   red: {
@@ -44,13 +46,14 @@ export class CalendarComponent implements OnInit {
   filtroCalendario: any;
   horarioFiltro: any = {
                         curso: {
-                          carrera: null, 
+                          carrera: {secciones: null}, 
                           seccion: null,
                           semestre: null
                         },
                         aula: null,
                         materia: null
                       };
+  secciones: any;                    
   locale: string = 'es';
   usuarioLogged: any;
   view: CalendarView = CalendarView.Day;
@@ -61,6 +64,8 @@ export class CalendarComponent implements OnInit {
   horaFin = '22';
   fecha= new Date();
   carreraSelected: boolean = false;
+
+  titulo = "Horarios";
 
 
   actions: CalendarEventAction[] = [
@@ -119,6 +124,8 @@ export class CalendarComponent implements OnInit {
   }
 
   constructor(private dialogHorario: MatDialog,
+              private spinnerDialog: MatDialog,
+              private snackBar: MatSnackBar,
               private service: DistribucionService,
               private authService: AuthService) {
     this.usuarioLogged = authService.getUsuarioConectado();
@@ -162,13 +169,12 @@ export class CalendarComponent implements OnInit {
       }
     }
     
-    const dialogRef = this.dialogHorario.open(HorarioDialogComponent, {
+    const dialogHorarioRef = this.dialogHorario.open(HorarioDialogComponent, {
       width: '400px',
       data: event.horario
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogHorarioRef.afterClosed().subscribe(result => {
       if (result)
         this.fetchHorarios();
     });
@@ -176,8 +182,10 @@ export class CalendarComponent implements OnInit {
   }
 
   fetchHorarios() {
+    const dialogSpinnerRef = this.spinnerDialog.open(SpinnerComponent, {panelClass: 'spinner-dialog-container'});
     this.service.fetchWithFilter(this.horarioFiltro)
     .subscribe( (data: any[]) => {
+      dialogSpinnerRef.close();
       this.events = [];
       this.horarios = data;
       this.horarios
@@ -197,10 +205,17 @@ export class CalendarComponent implements OnInit {
           this.event.horario = horario;
           this.events.push(this.event);
 
+          if (this.events.length == 0) {
+            this.snackBar.open('No se encontraron resultados para esta búsqueda', null,{duration: 2500})
+          }
+
           this.refresh.next();
 
       });
 
+    }, err => {
+      dialogSpinnerRef.close();
+      this.snackBar.open(err, null,{duration: 2500})
     });
   }
 
@@ -209,12 +224,14 @@ export class CalendarComponent implements OnInit {
   }
 
   setCarreraFiltro(event) {
-    console.log(event);
     this.horarioFiltro.curso.carrera = event;
-    if (this.horarioFiltro.curso.carrera.secciones && this.horarioFiltro.curso.carrera.secciones.length > 0) {
-      this.carreraSelected = true;
+    if (this.horarioFiltro.curso.carrera.secciones.length > 0) {
+      this.secciones = [];
+      this.horarioFiltro.curso.carrera.secciones.forEach(element => {
+        this.secciones.push(element.seccion);
+      });
       if (this.horarioFiltro.curso.carrera.secciones.length == 1) {
-        this.horarioFiltro.curso.seccion = this.horarioFiltro.curso.carrera.secciones[0];
+        this.horarioFiltro.curso.seccion = this.horarioFiltro.curso.carrera.secciones[0].seccion;
       }
     }
 

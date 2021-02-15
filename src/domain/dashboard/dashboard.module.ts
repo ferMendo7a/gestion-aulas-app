@@ -10,7 +10,8 @@ import { GenericModule } from '../generic.module';
   declarations: [DashboardComponent],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    GenericModule,
   ]
 })
 export class DashboardModule { }

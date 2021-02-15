@@ -17,6 +17,7 @@ import { SemestreSelectComponent } from './select/semestre-select/semestre-selec
 import { AulaSelectComponent } from './select/aula-select/aula-select.component';
 import { HorarioDialogComponent } from './dialog/horario-dialog/horario-dialog.component';
 import { SeccionSelectComponent } from './select/seccion-select/seccion-select.component';
+import { SpinnerComponent } from './dialog/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SeccionSelectComponent } from './select/seccion-select/seccion-select.c
     AulaSelectComponent,
     HorarioDialogComponent,
     SeccionSelectComponent,
+    SpinnerComponent,
   ],
   exports: [
     ActionBarComponent,
@@ -36,18 +38,18 @@ import { SeccionSelectComponent } from './select/seccion-select/seccion-select.c
     AulaSelectComponent,
     HorarioDialogComponent,
     SeccionSelectComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
     DashboardModule,
     MatSidenavModule,
     MatCheckboxModule,
-    MatToolbarModule,
     MatListModule,
     MatIconModule,
     MatButtonModule,
     GenericModule,
   ],
-  entryComponents: [HorarioDialogComponent],
+  entryComponents: [HorarioDialogComponent, SpinnerComponent],
 })
 export class ComponentsModule { }

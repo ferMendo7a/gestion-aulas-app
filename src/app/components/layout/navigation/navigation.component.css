@@ -2,21 +2,35 @@
 
 .sidebar-container {
     position: absolute;
-    top: 64px;
     bottom: 0;
     left: 0;
     right: 0;
-  }
-  
-  .sidebar-content {
+}
+
+.sidebar-content {
     width: auto;
-  }
+    background-color: #ECEFF1;
+}
 
-  /* topbar */
 
-  .background-dark {
+/* topbar */
+
+.background-dark {
     background: #3E433F;
     color: #fff;
+}
+
+.background-toolbar {
+    background: #395B9D;
+    color: #fff;
+}
+
+.background-toolbar a {
+    color: #fff !important;
+}
+
+.background-toolbar a:hover {
+    text-decoration: none;
 }
 
 .logo-img {
@@ -25,9 +39,9 @@
 }
 
 .btn-toggle {
-  outline: none;
+    outline: none;
 }
 
 .m-5 {
-  margin-top: 1.5rem !important;
+    margin-top: 1.5rem !important;
 }

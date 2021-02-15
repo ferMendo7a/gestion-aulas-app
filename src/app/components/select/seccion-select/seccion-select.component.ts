@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, SimpleChanges } from '@angular/core';
 import { SeccionService } from '../../../../domain/seccion/seccion.service';
 import { map } from 'rxjs/operators';
 
@@ -19,7 +19,10 @@ export class SeccionSelectComponent implements OnInit {
   }
   
   ngOnInit() {
-    if (this.value != undefined) {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.value != undefined) {
       this.seccion = this.value;
     }
   }
@@ -29,7 +32,7 @@ export class SeccionSelectComponent implements OnInit {
   }
 
   compareObjects(o1: any, o2: any): boolean {
-    return o1 !== undefined && o2 !== undefined && o1.seccion.id === o2.seccion.id;
+    return o1 !== undefined && o2 !== undefined && o1.id === o2.id;
   }
 
 }
