@@ -2,6 +2,10 @@
     <mat-toolbar-row>
         <p>{{titulo}}</p>
 
+        <button mat-button (click)="buscarAulasDisponibles()">
+            Consultar aulas disponibles
+        </button>
+
         <span class="flex-spacer"></span>
         <button mat-button (click)="buscarHorarios()">
             <mat-icon>search</mat-icon>

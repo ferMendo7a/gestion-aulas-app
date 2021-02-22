@@ -20,6 +20,8 @@ import { NavigationComponent } from './components/layout/navigation/navigation.c
 import { LoginModule } from 'src/domain/login/login.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 
+import {MatExpansionModule} from '@angular/material/expansion';
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'LL',
@@ -51,7 +53,8 @@ export const MY_FORMATS = {
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    LoginModule
+    LoginModule,
+    MatExpansionModule
   ],
   providers: [
       {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}

@@ -20,6 +20,7 @@ import { EventColor } from 'calendar-utils';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material';
 import { SpinnerComponent } from 'src/app/components/dialog/spinner/spinner.component';
+import { ConsultaAulasComponent } from 'src/app/components/dialog/consulta-aulas/consulta-aulas.component';
 
 const colors: any = {
   red: {
@@ -129,7 +130,6 @@ export class CalendarComponent implements OnInit {
               private service: DistribucionService,
               private authService: AuthService) {
     this.usuarioLogged = authService.getUsuarioConectado();
-    console.log(this.usuarioLogged);
   }
 
   ngOnInit() {
@@ -226,10 +226,12 @@ export class CalendarComponent implements OnInit {
   setCarreraFiltro(event) {
     this.horarioFiltro.curso.carrera = event;
     if (this.horarioFiltro.curso.carrera.secciones.length > 0) {
+      console.log(this.horarioFiltro.curso.carrera.secciones);
       this.secciones = [];
       this.horarioFiltro.curso.carrera.secciones.forEach(element => {
         this.secciones.push(element.seccion);
       });
+      console.log(this.secciones);
       if (this.horarioFiltro.curso.carrera.secciones.length == 1) {
         this.horarioFiltro.curso.seccion = this.horarioFiltro.curso.carrera.secciones[0].seccion;
       }
@@ -237,10 +239,15 @@ export class CalendarComponent implements OnInit {
 
   }
   setSeccionFiltro(event) {
-    this.horarioFiltro.curso.seccion = event.seccion;
+    this.horarioFiltro.curso.seccion = event;
+    console.log(this.horarioFiltro.curso.seccion);
   }
   setSemestreFiltro(event) {
     this.horarioFiltro.curso.semestre = event;
+  }
+
+  buscarAulasDisponibles() {
+    const dialogHorarioRef = this.dialogHorario.open(ConsultaAulasComponent);
   }
 
 }

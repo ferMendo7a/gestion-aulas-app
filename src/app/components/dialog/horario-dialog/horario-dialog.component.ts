@@ -22,6 +22,7 @@ export class HorarioDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    console.log(this.data);
   }
 
   setMateria(event){

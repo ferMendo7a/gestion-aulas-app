@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'carrera', loadChildren:'../domain/carrera/carrera.module#CarreraModule', canActivate: [ AuthGuard ] },
   { path: 'materia', loadChildren:'../domain/materia/materia.module#MateriaModule', canActivate: [ AuthGuard ] },
   { path: 'distribucion', loadChildren:'../domain/distribucion/distribucion.module#DistribucionModule', canActivate: [ AuthGuard ] },
+  { path: 'privilegio', loadChildren:'../domain/privilegio/privilegio.module#PrivilegioModule', canActivate: [ AuthGuard ] },
   { path: 'login', loadChildren:'../domain/login/login.module#LoginModule' }
 ];
 @NgModule({

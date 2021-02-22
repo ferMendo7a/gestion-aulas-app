@@ -13,6 +13,10 @@ export class AulaService extends GenericService<Aula>{
     ) {
       super(http, 'aula');
     }
+
+    buscarAulasDisponibles(intervalo: any) {
+      return this.post('consulta-disponibles', intervalo);
+    }
   
   }
   

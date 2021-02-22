@@ -18,6 +18,9 @@ import { AulaSelectComponent } from './select/aula-select/aula-select.component'
 import { HorarioDialogComponent } from './dialog/horario-dialog/horario-dialog.component';
 import { SeccionSelectComponent } from './select/seccion-select/seccion-select.component';
 import { SpinnerComponent } from './dialog/spinner/spinner.component';
+import { ConsultaAulasComponent } from './dialog/consulta-aulas/consulta-aulas.component';
+
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,7 @@ import { SpinnerComponent } from './dialog/spinner/spinner.component';
     HorarioDialogComponent,
     SeccionSelectComponent,
     SpinnerComponent,
+    ConsultaAulasComponent,
   ],
   exports: [
     ActionBarComponent,
@@ -39,6 +43,7 @@ import { SpinnerComponent } from './dialog/spinner/spinner.component';
     HorarioDialogComponent,
     SeccionSelectComponent,
     SpinnerComponent,
+    ConsultaAulasComponent,
   ],
   imports: [
     CommonModule,
@@ -50,6 +55,6 @@ import { SpinnerComponent } from './dialog/spinner/spinner.component';
     MatButtonModule,
     GenericModule,
   ],
-  entryComponents: [HorarioDialogComponent, SpinnerComponent],
+  entryComponents: [HorarioDialogComponent, SpinnerComponent, ConsultaAulasComponent],
 })
 export class ComponentsModule { }

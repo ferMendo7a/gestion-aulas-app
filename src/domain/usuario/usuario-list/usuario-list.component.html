@@ -1,18 +1,23 @@
-<h3 class="titulo-pagina" >{{ titulo }}</h3>
+<mat-toolbar class="toolbar-header mat-elevation-z8">
+    <mat-toolbar-row>
+        <p>{{titulo}}</p>
 
-<button mat-button (click)="nuevo()" >Nuevo</button>
+        <span class="flex-spacer"></span>
+        <button mat-button (click)="nuevo()">Nuevo</button>
 
-<hr>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
 
 <div class="row">
     <div class="col-12">
-        <br>
 
         <mat-spinner *ngIf="loading"></mat-spinner>
 
         <div *ngIf="!loading" class="mat-elevation-z8 animated fadeIn">
 
-            <table mat-table *ngIf="!loading" [dataSource]="usuarios" >
+            <table mat-table *ngIf="!loading" [dataSource]="usuarios">
 
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -43,7 +48,7 @@
                 <tr mat-row *matRowDef="let row; columns: ['id', 'nombre', 'login', 'email', 'options'];"></tr>
             </table>
 
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons >
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
             </mat-paginator>
 
         </div>

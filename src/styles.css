@@ -167,7 +167,7 @@ button:focus {
     min-height: auto !important;
     padding: 4px;
     margin-bottom: 10px;
-    box-shadow: 2px 2px 3px #999;
+    /*box-shadow: 2px 2px 3px #999;*/
 }
 
 .toolbar-header .mat-toolbar-row {

@@ -51,5 +51,9 @@ export abstract class GenericService<T> {
     return this.httpClient.put<T>(this.url, obj, { headers });
   }
 
+  post(endpoint: string, obj: any): Observable<T[]> {
+    let headers = this.headers;
+    return this.httpClient.post<T[]>(`${this.url}${endpoint}/`, obj, { headers });
+  }
 
 }

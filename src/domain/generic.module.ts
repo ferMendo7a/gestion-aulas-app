@@ -16,9 +16,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSnackBarModule, MatToolbarModule } from '@angular/material';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { PrivilegioComponent } from './privilegio/privilegio.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [PrivilegioComponent],
   imports: [
     CommonModule,
     MatTableModule,
