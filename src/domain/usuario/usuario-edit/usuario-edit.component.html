@@ -43,15 +43,24 @@
 
                 <div class="col-6">
                     <mat-form-field>
-                        <mat-label>Grupo</mat-label>
-                        <input matInput disabled [value]="usuario.grupo.nombre">
+                        <mat-label>Grupo de usuarios</mat-label>
+                        <mat-select [(ngModel)]="usuario.grupo" name="grupo" >
+                            <mat-option *ngFor="let grupo of grupos" [value]="grupo">
+                                {{grupo.nombre}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
-                </div>
+                            </div>
 
             </mat-tab>
 
 
         </mat-tab-group>
+
+        <div class="submit-button" style="padding-left: 15px; padding-right: 15px;" > 
+            <button mat-raised-button color="primary" (click)="submit()">Guardar</button>
+        </div>
+
     </form>
 
 

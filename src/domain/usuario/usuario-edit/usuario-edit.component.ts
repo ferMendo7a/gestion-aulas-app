@@ -3,6 +3,7 @@ import { Usuario } from '../usuario.model';
 import { UsuarioService } from '../usuario.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { GenericEditComponent } from 'src/domain/generic-edit.component';
+import { PrivilegioService } from 'src/domain/privilegio/privilegio.service';
 
 @Component({
   selector: 'app-usuario-edit',
@@ -12,11 +13,13 @@ import { GenericEditComponent } from 'src/domain/generic-edit.component';
 export class UsuarioEditComponent extends GenericEditComponent<Usuario> implements OnInit {
 
   usuario: Usuario = new Usuario();
+  grupos: any[];
 
   constructor(
     private service: UsuarioService,
     private route: ActivatedRoute,
     private router: Router,
+    private grupoService: PrivilegioService,
     ) {
       super();
   }
@@ -45,10 +48,22 @@ export class UsuarioEditComponent extends GenericEditComponent<Usuario> implemen
         this.loading = false;
       }
     );
+    this.grupoService.fetch().subscribe(
+      (data: any[]) => {
+        this.grupos = data;
+      }
+    );
   }
 
   volver() {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
+  submit() {
+    this.service.save(this.usuario).subscribe(
+      data => {
+        console.log("guardado con exito")
+      }, error => console.log(error)
+    );
+  }
 }
