@@ -142,7 +142,8 @@ button:focus {
 }
 
 .submit-button {
-    float: right;
+    display: flex;
+    justify-content: flex-end;
     margin-top: 15px;
 }
 

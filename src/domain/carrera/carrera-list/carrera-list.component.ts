@@ -19,7 +19,6 @@ export class CarreraListComponent implements OnInit {
 
     this.service.fetch()
       .subscribe( (data: any[]) => {
-        console.log(data);
         this.carreras = data;
         this.loading = false;
       });

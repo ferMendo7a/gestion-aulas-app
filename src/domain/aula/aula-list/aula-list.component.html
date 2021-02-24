@@ -1,9 +1,15 @@
-<h2>{{ titulo }}</h2>
-<hr>
+<mat-toolbar class="toolbar-header mat-elevation-z8">
+    <mat-toolbar-row>
+        <p>{{ titulo }}</p>
+
+        <span class="flex-spacer"></span>
+        <button mat-button (click)="nuevo()">Nuevo</button>
+
+    </mat-toolbar-row>
+</mat-toolbar>
 
 <div class="row">
     <div class="col-12">
-        <br>
 
         <mat-spinner *ngIf="loading"></mat-spinner>
 
@@ -17,7 +23,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="descripcion">
-                    <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                    <th mat-header-cell *matHeaderCellDef> Nombre </th>
                     <td mat-cell *matCellDef="let aula"> {{ aula.descripcion }} </td>
                 </ng-container>
 
@@ -26,12 +32,22 @@
                     <td mat-cell *matCellDef="let aula"> {{ aula.sector }} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="['id', 'descripcion', 'sector']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['id', 'descripcion', 'sector'];"></tr>
+                <ng-container matColumnDef="options">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let aula" class="right">
+                        <button mat-icon-button (click)="editar(aula.id)">
+                            <mat-icon>create</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="['id', 'descripcion', 'sector', 'options']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['id', 'descripcion', 'sector', 'options'];"></tr>
 
             </table>
 
-            <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons >
+            <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons>
             </mat-paginator>
 
         </div>

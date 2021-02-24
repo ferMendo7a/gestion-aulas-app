@@ -49,6 +49,8 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('privilegios');
+    localStorage.removeItem('user');
   }
 
   isAutenticado(): boolean {
@@ -99,7 +101,9 @@ export class AuthService {
   }
 
   getPrivilegios() {
-    return JSON.parse(localStorage.getItem('privilegios')) || [];
+    const privilegios = JSON.parse(localStorage.getItem('privilegios'));
+    return privilegios !== undefined && privilegios !== null && privilegios.length > 0 ? 
+      privilegios.map(data => data.toLowerCase()) : [];
   }
 
 }

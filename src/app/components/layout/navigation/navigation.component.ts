@@ -3,6 +3,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationStart, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginService } from 'src/domain/login/login.service';
+import { PrivilegioService } from 'src/domain/privilegio/privilegio.service';
 
 @Component({
   selector: 'app-navigation',
@@ -23,19 +24,15 @@ export class NavigationComponent implements OnInit {
   constructor( 
     private authService: AuthService,
     private router: Router,
-    private renderer: Renderer2
+    private privilegioService: PrivilegioService,
     ) {
       this.router.events
       .subscribe((event) => {
         if (event instanceof NavigationStart ) {
+          console.log(event.url)
           this.cargarItemsMenu();
-          this.showNav = event.url !== '/login';
-          if (this.showNav) {
-            this.sidenav.open();
-          } else {
-            this.sidenav.close();
-          }
-          this.opened = this.showNav;
+          this.exhibeNav(event);
+          this.validaAccesoNavegacion(event);
         }
       });
 
@@ -61,8 +58,9 @@ export class NavigationComponent implements OnInit {
     const registros = [];
     const gestion = [];
     const configuracion = [];
+    this.items = [];
     
-    const privilegios = this.authService.getPrivilegios().map(data => data.toLowerCase());
+    const privilegios = this.authService.getPrivilegios();
 
     if (privilegios.indexOf('usuarios') > 1)
       registros.push({link: "usuario", nombre: "Usuarios", icono: "account_box"  });
@@ -75,23 +73,33 @@ export class NavigationComponent implements OnInit {
     if (registros.length > 0)
       this.items['registros'] = registros;
 
-      console.log('indexOf horarios');
-      console.log(privilegios.indexOf('horarios'));
-
-    if (privilegios.indexOf('horarios') > 1)
-      gestion.push({link: "distribucion", nombre: "Horarios", icono: "event_note"});
+    if (privilegios.indexOf('distribucion') > 1)
+      gestion.push({link: "distribucion", nombre: "Distribucion", icono: "event_note"});
     if (gestion.length > 0)
       this.items['gestion'] = gestion;
       
-      console.log('indexOf privilegios');
-      console.log(privilegios.indexOf('privilegios'));
     if (privilegios.indexOf('privilegios') >= 0)
       configuracion.push({link: "privilegio", nombre: "Privilegios", icono: "event_note"});
     if (configuracion.length > 0)
       this.items['configuracion'] = configuracion;
 
-
-      console.log(this.items['configuracion'][0].nombre);
-
   }
+
+  exhibeNav(event) {
+    this.showNav = event.url !== '/login';
+    if (this.showNav) {
+      this.sidenav.open();
+    } else {
+      this.sidenav.close();
+    }
+    this.opened = this.showNav;
+  }
+
+  validaAccesoNavegacion(event) {
+    if (event.url !== '/login' && event.url !== '/dashboard' && event.url !== '/') {
+      if (!this.privilegioService.puedeAccederUrl(event.url))
+      this.router.navigate(['']);
+    }
+  }
+
 }

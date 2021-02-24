@@ -16,11 +16,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatSnackBarModule, MatToolbarModule } from '@angular/material';
-import {MatExpansionModule} from '@angular/material/expansion';
-import { PrivilegioComponent } from './privilegio/privilegio.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
-  declarations: [PrivilegioComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MatTableModule,
@@ -40,6 +39,7 @@ import { PrivilegioComponent } from './privilegio/privilegio.component';
     MatDialogModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatCheckboxModule,
   ],
   exports: [
     CommonModule,
@@ -60,6 +60,7 @@ import { PrivilegioComponent } from './privilegio/privilegio.component';
     MatDialogModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatCheckboxModule,
   ],
   providers: [
     MatDatepickerModule,

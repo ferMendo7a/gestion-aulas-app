@@ -1,4 +1,5 @@
 import { OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenericService } from './generic.service';
 
 export abstract class GenericEditComponent<T> {
@@ -15,4 +16,5 @@ export abstract class GenericEditComponent<T> {
         this.options = {};
         this.options.isEdicion = true;
     }
+    
 }

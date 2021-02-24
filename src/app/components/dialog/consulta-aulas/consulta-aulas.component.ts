@@ -20,7 +20,6 @@ export class ConsultaAulasComponent implements OnInit {
   }
 
   buscarAulasDisponibles(intervalo) {
-    console.log(intervalo);
     this.service.buscarAulasDisponibles(intervalo).subscribe(
       data => this.aulas = data
     )

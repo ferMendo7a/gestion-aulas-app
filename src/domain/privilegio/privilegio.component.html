@@ -1,1 +1,67 @@
-<p>privilegio works!</p>
+<mat-toolbar class="toolbar-header mat-elevation-z8">
+    <mat-toolbar-row>
+        <p>{{titulo}}</p>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card>
+
+    <div class="box-margin-top col-12 no-padding">
+
+        <mat-form-field>
+            <mat-label>Grupo de usuarios</mat-label>
+            <mat-select [(ngModel)]="grupoSelected" (selectionChange)="onGrupoSelected()">
+                <mat-option *ngFor="let grupo of grupos" [value]="grupo">
+                    {{grupo.nombre}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <table mat-table *ngIf="grupoSelected !== undefined" [dataSource]="grupoSelected.privilegios">
+
+            <ng-container matColumnDef="pagina">
+                <th mat-header-cell *matHeaderCellDef> Página </th>
+                <td mat-cell *matCellDef="let privilegio"> {{ privilegio.paginaAccion.descripcion }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="consultar">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Puede consultar </th>
+                <td mat-cell *matCellDef="let privilegio" style="text-align: center;">
+                    <mat-checkbox [(ngModel)]="privilegio.consultar"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="incluir">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Puede incluir </th>
+                <td mat-cell *matCellDef="let privilegio" style="text-align: center;">
+                    <mat-checkbox [(ngModel)]="privilegio.incluir"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="modificar">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Puede modificar </th>
+                <td mat-cell *matCellDef="let privilegio" style="text-align: center;">
+                    <mat-checkbox [(ngModel)]="privilegio.modificar"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="eliminar">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Puede eliminar </th>
+                <td mat-cell *matCellDef="let privilegio" style="text-align: center;">
+                    <mat-checkbox [(ngModel)]="privilegio.eliminar"></mat-checkbox>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="['pagina', 'consultar', 'incluir', 'modificar', 'eliminar']"></tr>
+            <tr mat-row *matRowDef="let row; columns: ['pagina', 'consultar', 'incluir', 'modificar', 'eliminar'];"></tr>
+
+        </table>
+
+        <div class="submit-button">
+            <button mat-raised-button style="margin-top: 20px;" color="primary" (click)="submit()">Guardar</button>
+        </div>
+
+
+    </div>
+
+</mat-card>

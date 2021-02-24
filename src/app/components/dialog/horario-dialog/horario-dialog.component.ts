@@ -22,7 +22,6 @@ export class HorarioDialogComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log(this.data);
   }
 
   setMateria(event){
@@ -40,7 +39,6 @@ export class HorarioDialogComponent implements OnInit {
       dialogSpinnerRef.close();
       this.dialogRef.close(data);
     }, err => {
-      console.log(err);
       dialogSpinnerRef.close();
       this.snackBar.open(err.error.message, null,{duration: 2500})
       this.dialogRef.close();

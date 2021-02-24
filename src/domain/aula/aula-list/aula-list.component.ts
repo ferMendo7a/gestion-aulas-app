@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AulaService } from '../aula.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-aula-list',
@@ -16,13 +17,15 @@ export class AulaListComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(private service: AulaService) {
+  constructor(private service: AulaService,
+    public route: ActivatedRoute,
+    public router: Router,
+  ) {
 
     this.loading = true;
 
     this.service.fetch()
       .subscribe((data: any[]) => {
-        console.log(data);
         this.aulas = new MatTableDataSource<any[]>(data);
         this.loading = false;
         this.aulas.paginator = this.paginator;
@@ -31,6 +34,14 @@ export class AulaListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  editar(id: number) {
+    this.router.navigate([id], { relativeTo: this.route });
+  }
+
+  nuevo() {
+    this.router.navigate(['nuevo'], { relativeTo: this.route });
   }
 
 }

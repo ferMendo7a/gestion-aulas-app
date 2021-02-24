@@ -226,12 +226,10 @@ export class CalendarComponent implements OnInit {
   setCarreraFiltro(event) {
     this.horarioFiltro.curso.carrera = event;
     if (this.horarioFiltro.curso.carrera.secciones.length > 0) {
-      console.log(this.horarioFiltro.curso.carrera.secciones);
       this.secciones = [];
       this.horarioFiltro.curso.carrera.secciones.forEach(element => {
         this.secciones.push(element.seccion);
       });
-      console.log(this.secciones);
       if (this.horarioFiltro.curso.carrera.secciones.length == 1) {
         this.horarioFiltro.curso.seccion = this.horarioFiltro.curso.carrera.secciones[0].seccion;
       }
@@ -240,7 +238,6 @@ export class CalendarComponent implements OnInit {
   }
   setSeccionFiltro(event) {
     this.horarioFiltro.curso.seccion = event;
-    console.log(this.horarioFiltro.curso.seccion);
   }
   setSemestreFiltro(event) {
     this.horarioFiltro.curso.semestre = event;

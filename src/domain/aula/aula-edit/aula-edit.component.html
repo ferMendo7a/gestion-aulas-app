@@ -1,1 +1,34 @@
-<p>aula-edit works!</p>
+<mat-toolbar class="toolbar-header mat-elevation-z8">
+    <mat-toolbar-row>
+
+        <app-action-bar (actionVolver)="volver()" [options]="options"></app-action-bar>
+
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card>
+
+    <form>
+
+        <div class="col-12">
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input matInput [value]="aula.descripcion">
+            </mat-form-field>
+        </div>
+
+        <div class="col-12">
+            <mat-form-field>
+                <mat-label>Sector</mat-label>
+                <input matInput [value]="aula.sector">
+            </mat-form-field>
+        </div>
+
+
+        <div class="submit-button">
+            <button mat-raised-button color="primary" (click)="submit()">Guardar</button>
+        </div>
+
+    </form>
+
+</mat-card>

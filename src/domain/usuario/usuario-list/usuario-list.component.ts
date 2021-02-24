@@ -23,7 +23,6 @@ export class UsuarioListComponent implements OnInit {
 
     this.service.fetch()
       .subscribe( (data: any[]) => {
-        console.log(data);
         this.usuarios = data;
         this.loading = false;
       });
