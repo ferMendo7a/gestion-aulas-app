@@ -182,3 +182,7 @@ button:focus {
 .mat-card {
     box-shadow: 2px 2px 3px #999 !important;
 }
+
+.mat-simple-snackbar {
+    justify-content: center !important;
+}

@@ -62,18 +62,18 @@ export class NavigationComponent implements OnInit {
     
     const privilegios = this.authService.getPrivilegios();
 
-    if (privilegios.indexOf('usuarios') > 1)
+    if (privilegios.indexOf('usuarios') >= 0)
       registros.push({link: "usuario", nombre: "Usuarios", icono: "account_box"  });
-    if (privilegios.indexOf('carreras') > 1)
+    if (privilegios.indexOf('carreras') >= 0)
       registros.push({link: "carrera", nombre: "Carreras", icono: "school"});
-    if (privilegios.indexOf('materias') > 1)
+    if (privilegios.indexOf('materias') >= 0)
       registros.push({link: "materia", nombre: "Materias", icono: "library_books"});
-    if (privilegios.indexOf('aulas') > 1)
+    if (privilegios.indexOf('aulas') >= 0)
       registros.push({link: "aula", nombre: "Aulas", icono: "meeting_room" });
     if (registros.length > 0)
       this.items['registros'] = registros;
 
-    if (privilegios.indexOf('distribucion') > 1)
+    if (privilegios.indexOf('distribucion') >= 0)
       gestion.push({link: "distribucion", nombre: "Distribucion", icono: "event_note"});
     if (gestion.length > 0)
       this.items['gestion'] = gestion;

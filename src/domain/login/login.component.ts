@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
   formularioValido(): boolean {
     if (this.usuario.username.length == 0) {
-      this.snackBar.open('Ingrese el nombre de usuario', null, {duration: 10000});
+      this.snackBar.open('Ingrese el nombre de usuario', null, {duration: 100000});
       return false;
     }
     if (this.usuario.password.length == 0) {
